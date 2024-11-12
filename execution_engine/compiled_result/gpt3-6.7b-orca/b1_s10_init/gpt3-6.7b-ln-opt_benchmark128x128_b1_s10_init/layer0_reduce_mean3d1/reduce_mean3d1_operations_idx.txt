@@ -1,0 +1,29 @@
+// CODELET:	reduce_mean3d1
+inputs=data['N', 'C', 'H']
+intermediates=init['SIMD_SIZE'], denom['SIMD_SIZE']
+outputs=out['N', 'C', 'ONE']
+0	config0: start-SIMD
+1	config1: start-IMM[0]=0
+2	config2: start-IMM[1]=16
+3	(ONE)loop0[0]: START=0; STOP=1; STRIDE=1; OFFSET:0
+4		(C)loop1[1]: START=0; STOP=128; STRIDE=128; OFFSET:0
+5			(N)loop2[2]: START=0; STOP=1; STRIDE=1; OFFSET:0
+6				transfer1: OPERAND: out[DRAM->VMEM2], SIZES: [[1, 128, 1], [1, 128, 1]]
+7				(H)loop3[3]: START=0; STOP=4096; STRIDE=2048; OFFSET:0
+8					transfer0: OPERAND: data[DRAM->VMEM1], SIZES: [[1, 128, 4096], [1, 128, 2048]]
+9					(ONE)loop4[4]: START=0; STOP=1; STRIDE=1; OFFSET:0
+10						(C)loop5[5]: START=0; STOP=128; STRIDE=1; OFFSET:0
+11							(N)loop6[6]: START=0; STOP=1; STRIDE=1; OFFSET:0
+12								(H)loop7[7]: START=0; STOP=2048; STRIDE=1; OFFSET:0
+13									compute0: SIMD-ADD(['data', 'out'])->['out']
+14									compute1: SIMD-MUL(['out', 'denom'])->['out']
+15								loop7: END
+16							loop6: END
+17						loop5: END
+18					loop4: END
+19					transfer2: OPERAND: out[VMEM2->DRAM], SIZES: [[1, 128, 1], [1, 128, 1]]
+20				loop3: END
+21			loop2: END
+22		loop1: END
+23	loop0: END
+24	config3: end-SIMD

@@ -1,0 +1,18 @@
+// CODELET:	elem_sigmoid2d2
+inputs=op1['N', 'C']
+intermediates=imm_dummy['SIMD_SIZE']
+outputs=out['N', 'C']
+0	config0: start-SIMD
+1	config1: start-IMM[0]=16
+2	(N)loop0[0]: START=0; STOP=10; STRIDE=10; OFFSET:0
+3		(C)loop1[1]: START=0; STOP=11008; STRIDE=11008; OFFSET:0
+4			transfer0: OPERAND: op1[DRAM->VMEM1], SIZES: [[10, 11008], [10, 11008]]
+5			(N)loop2[2]: START=0; STOP=10; STRIDE=1; OFFSET:0
+6				(C)loop3[3]: START=0; STOP=11008; STRIDE=1; OFFSET:0
+7					compute0: SIMD-SIGMOID(['op1', 'imm_dummy'])->['out']
+8				loop3: END
+9			loop2: END
+10			transfer1: OPERAND: out[VMEM2->DRAM], SIZES: [[10, 11008], [10, 11008]]
+11		loop1: END
+12	loop0: END
+13	config2: end-SIMD
