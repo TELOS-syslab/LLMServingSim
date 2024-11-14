@@ -256,6 +256,7 @@ def main():
         prompt_th += prompt_t
         total_prompt += prompt_t
         gen_th += gen_t
+        gen_th += gen_t
         total_gen += gen_t
         
         if scheduler.isRequestEmpty():
