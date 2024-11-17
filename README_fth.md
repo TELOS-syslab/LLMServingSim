@@ -65,6 +65,11 @@ cd ../../../../execution_engine/polymath          # 返回并进入 Polymath 目
 pip install .                                     # 安装 Polymath 库
 cd ../..                                          # 返回到初始目录
 
+bash && conda activate llm_serving_sim
+
+bash 
+conda activate llm_serving_sim
+
 # 设置输入配置
 
 # 配置 & 数据集路径：

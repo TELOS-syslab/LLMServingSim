@@ -296,7 +296,7 @@ def main():
     print('---------------------------')
 
     # 打印模拟时间
-    orca_time = round(scheduler.orca * 1000, 3)  # ORCA时间（毫秒）
+    orca_time = round(scheduler.orca * 1000, 3)  # ORCA时间（毫秒） 把秒转换为毫秒 并且保留三位小数
     vllm_time = round(scheduler.vllm * 1000, 3)  # vLLM时间（毫秒）
     astra_time = round(astra_time, 3)  # Astra模拟器时间（毫秒）
     graph_time = round(graph_time, 3)  # 图生成时间（毫秒）
