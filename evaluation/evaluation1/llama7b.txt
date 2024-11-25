@@ -749,8 +749,8 @@ Average throughput: prompt: 195.0852559208885 generation: 583.7758706851755
 ---------------------------
 Simulation Time (ms)
 ---------------------------
-Total execution engine time: 244713.626
-Total graph time: 81403.177
-Total astra time: 29547.115
-Total scheduler time: 5740.145
-Total simulation time: 361404.063
+Total execution engine time: 226601.806
+Total graph time: 75662.072
+Total astra time: 28970.485
+Total scheduler time: 4819.428
+Total simulation time: 336053.791
